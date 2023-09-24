@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -18,12 +19,13 @@ function SelectedOnSearch({ category, text }) {
 }
 
 SelectedOnSearch.propTypes = {
-  category: PropTypes.arrayOf.isRequired,
+  category: PropTypes.array,
   text: PropTypes.string,
 };
 
 SelectedOnSearch.defaultProps = {
   text: '',
+  category: [],
 };
 
 export default SelectedOnSearch;

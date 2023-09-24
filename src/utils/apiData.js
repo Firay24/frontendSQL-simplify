@@ -21,7 +21,7 @@ async function fetchWithToken(url, options = {}) {
 }
 
 async function login({ username, password }) {
-  const response = await fetch(`${BASE_URL}/users/loginUser`, {
+  const response = await fetch(`${BASE_URL}/users/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ async function login({ username, password }) {
     return { error: true, data: null };
   }
 
-  return { error: false, data: responseJson };
+  return { error: false, data: responseJson.data };
 }
 
 async function register({
@@ -62,7 +62,7 @@ async function register({
 }
 
 async function getUserLogged() {
-  const response = await fetchWithToken(`${BASE_URL}/users/getUser`);
+  const response = await fetchWithToken(`${BASE_URL}/users/me`);
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
@@ -74,10 +74,10 @@ async function getUserLogged() {
 
 // FLOCKS
 async function getFlocks() {
-  const response = await fetchWithToken(`${BASE_URL}/flocks/getFlocks`);
+  const response = await fetchWithToken(`${BASE_URL}/flocks`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (responseJson.status !== 200) {
     alert(responseJson.message);
     return { error: true, data: [] };
   }
@@ -410,8 +410,8 @@ async function updateClass({
 }
 
 // NOTE'S FLOCK
-async function getNotesFlock() {
-  const response = await fetchWithToken(`${BASE_URL}/noteFlock/getNotes`);
+async function getNotesFlock(id) {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/notes/${id}`);
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {

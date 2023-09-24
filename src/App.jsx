@@ -47,7 +47,7 @@ function App() {
     const delayTime = 2000;
 
     setTimeout(() => {
-      setAuthedUser(data.user);
+      setAuthedUser(data);
       navigate('/jamaah/listData');
     }, delayTime);
   }
@@ -69,8 +69,8 @@ function App() {
     if (token) {
       const fetchUserData = async () => {
         try {
-          const { data } = await getUserLogged();
-          setAuthedUser(data.user);
+          const data = await getUserLogged();
+          setAuthedUser(data);
         } catch (error) {
           console.log('Error fetching user data:', error);
         }

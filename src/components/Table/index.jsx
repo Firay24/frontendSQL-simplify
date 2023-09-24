@@ -9,7 +9,7 @@ import HeaderItem from './HeaderItem';
 import RowItem from './RowItem';
 
 function TableSection({
-  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, getIdFromNotes, isClasses = false, isSuluk = false, isNotes = false, idFlock,
+  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses = false, isSuluk = false, isNotes = false, idFlock,
 }) {
   return (
     <div className="relative overflow-x-auto mt-5 drop-shadow-sm">
@@ -20,24 +20,24 @@ function TableSection({
             isClasses || isSuluk || isNotes
               ? data && data.details.map((item) => (
                 <RowItem
-                  key={item._id}
+                  key={item.id}
                   data={item}
                   rows={rowsName}
                   isClasses={isClasses}
                   isSuluk={isSuluk}
-                  pathDetail={`${pathDetail}${idFlock}/${item._id}`}
-                  pathEdit={`${pathEdit}${idFlock}/${item._id}`}
+                  pathDetail={`${pathDetail}${idFlock}/${item.id}`}
+                  pathEdit={`${pathEdit}${idFlock}/${item.id}`}
                 />
               ))
               : data && data.map((item) => (
                 <RowItem
-                  key={item._id}
+                  key={item.id}
                   data={item}
                   rows={rowsName}
-                  pathDetail={`${pathDetail}${item._id}`}
-                  pathEdit={`${pathEdit}${item._id}`}
-                  pathNote={pathNote ? (getIdFromNotes(item) ? `${pathNote}${getIdFromNotes(item)}` : `${pathNote}${item._id}`) : undefined}
-                  regency={item.address.regency !== '' ? item.address.regency : ' '}
+                  pathDetail={`${pathDetail}${item.id}`}
+                  pathEdit={`${pathEdit}${item.id}`}
+                  pathNote={`${pathNote}${item.id}`}
+                  regency={item.regency !== '' ? item.regency : ' '}
                 />
               ))
             }
@@ -57,7 +57,6 @@ TableSection.propTypes = {
   pathDetail: PropTypes.string,
   pathEdit: PropTypes.string,
   pathNote: PropTypes.string,
-  getIdFromNotes: PropTypes.func,
   isClasses: PropTypes.bool,
   isSuluk: PropTypes.bool,
   isNotes: PropTypes.bool,
