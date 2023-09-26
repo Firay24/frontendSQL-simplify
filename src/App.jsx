@@ -69,7 +69,7 @@ function App() {
     if (token) {
       const fetchUserData = async () => {
         try {
-          const data = await getUserLogged();
+          const { data } = await getUserLogged();
           setAuthedUser(data);
         } catch (error) {
           console.log('Error fetching user data:', error);

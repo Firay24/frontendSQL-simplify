@@ -43,7 +43,6 @@ function ListPage() {
   //   fetchData();
   // }, []);
   // const dataNotesFlock = notesFlock && notesFlock.data && notesFlock.data.notes;
-  console.log(flocks);
 
   return (
     <div className="mt-4 mr-10">

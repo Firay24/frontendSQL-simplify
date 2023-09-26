@@ -30,7 +30,7 @@ async function login({ username, password }) {
   });
   const responseJson = await response.json();
 
-  if (!responseJson) {
+  if (response.status !== 200) {
     alert(responseJson.message);
     return { error: true, data: null };
   }
@@ -41,7 +41,7 @@ async function login({ username, password }) {
 async function register({
   name, username, password, role, region,
 }) {
-  const response = await fetch(`${BASE_URL}/users/addUser`, {
+  const response = await fetch(`${BASE_URL}/users/regis`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ async function getUserLogged() {
   const response = await fetchWithToken(`${BASE_URL}/users/me`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     return { error: true, data: null };
   }
 

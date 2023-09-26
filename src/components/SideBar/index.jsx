@@ -43,7 +43,7 @@ function SideBarSection({ user }) {
           </div>
         </div>
         <div className={`${location.pathname === '/profil' ? 'bg-[#E6E9EC] border-l-2 border-gray-600' : ''} flex items-center py-3 hover:bg-[#E6E9EC] hover:border-l-2 hover:border-gray-600`}>
-          <ProfilBar user={user} />
+          <ProfilBar user={user[0]} />
         </div>
       </div>
     </div>
