@@ -20,7 +20,7 @@ function RowItem({
       </th>
       {
                 regularColumns.map((column, index) => (
-                  column === 'time' || column === 'createAt' || column === 'updatedAt'
+                  column === 'times' || column === 'createAt' || column === 'updatedAt'
                     ? (
                       <td key={index} className="px-6 py-4">
                         {ParseDateFunc(data[column])}
@@ -64,7 +64,16 @@ function RowItem({
                       </button>
                     </div>
                   </td>
-                ) : null
+                ) : (
+                  <td className="px-6 py-3 flex gap-x-2">
+                    <div className="bg-yellow-100 hover:bg-yellow-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center">
+                      <RxDotFilled className="text-base text-yellow-500" />
+                      <button className="text-gray-900">
+                        <Link to={pathEdit}>Edit</Link>
+                      </button>
+                    </div>
+                  </td>
+                )
             }
     </tr>
   );

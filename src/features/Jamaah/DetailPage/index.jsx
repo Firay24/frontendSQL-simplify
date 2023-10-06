@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  getFlock, getSuluks, getClasses, getFunctionals,
+  getFlock, getFunctionals,
 } from 'utils/apiData';
 import Loading from 'components/Loading';
 import ContentNotFound from 'components/404/Content';
@@ -14,12 +14,8 @@ import TableListClass from './Layout/TableListClass';
 
 function DetailPage() {
   const [flock, setFlock] = useState({ error: false, data: [] });
-  const [suluk, setSuluk] = useState({ error: false, data: [] });
   const [functionals, setFunctionals] = useState({ error: false, data: [] });
   const [functional, setFunctional] = useState({ error: false, data: [] });
-  const [detailSuluk, setDetailSuluk] = useState(null);
-  const [classes, setClasses] = useState({ error: false, data: [] });
-  const [detailClass, setDetailClass] = useState(null);
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,49 +33,7 @@ function DetailPage() {
 
     fetchData(id);
   }, [id]);
-  const detailFlock = flock && flock.data && flock.data.flock;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getSuluks();
-        setSuluk(result);
-      } catch (error) {
-        setSuluk({ error: true, data: [] });
-      }
-    };
-
-    fetchData();
-  }, []);
-  const dataSuluk = suluk && suluk.data && suluk.data.suluks;
-
-  useEffect(() => {
-    if (dataSuluk !== undefined && detailFlock !== undefined) {
-      const detailValue = dataSuluk && detailFlock && dataSuluk.find((item) => item.nik && item.nik === detailFlock.nik && item.fathersName === detailFlock.fathersName);
-      setDetailSuluk(detailValue);
-    }
-  }, [detailSuluk, dataSuluk, detailFlock]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getClasses();
-        setClasses(result);
-      } catch (error) {
-        setClasses({ error: true, data: [] });
-      }
-    };
-
-    fetchData();
-  }, []);
-  const dataClass = classes && classes.data && classes.data.classes;
-
-  useEffect(() => {
-    if (detailFlock !== undefined && dataClass !== undefined) {
-      const detailValue = dataClass && dataClass.find((item) => item.nik === detailFlock.nik && item.fathersName === detailFlock.fathersName);
-      setDetailClass(detailValue);
-    }
-  }, [detailClass, dataClass, detailFlock]);
+  const detailFlock = flock && flock.data;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,10 +56,10 @@ function DetailPage() {
   }, [dataFunctional, detailFlock]);
 
   useEffect(() => {
-    if (detailFlock !== undefined && detailClass !== undefined && detailSuluk !== undefined) {
+    if (detailFlock !== undefined) {
       setIsLoading(false);
     }
-  }, [detailFlock, detailClass, detailSuluk]);
+  }, [detailFlock]);
 
   return (
     <div className="mt-4 mr-10 mb-6">
@@ -117,16 +71,16 @@ function DetailPage() {
           isLoading ? <Loading /> : <DetailsContainer id={id} flock={detailFlock !== null && detailFlock !== undefined ? detailFlock : []} />
         }
       </div>
-      <div>
+      <div className="mt-10">
         <h2 className="text-base text-basic-blue font-medium">Informasi suluk</h2>
         {
-          isLoading ? <Loading /> : detailSuluk ? <TableListSuluk suluks={detailSuluk && detailSuluk} /> : <ContentNotFound text="Informasi suluk tidak tersedia" />
+          isLoading ? <Loading /> : detailFlock ? <TableListSuluk suluks={detailFlock && detailFlock.suluks} /> : <ContentNotFound text="Informasi suluk tidak tersedia" />
         }
       </div>
       <div className="mt-8">
         <h2 className="text-base text-basic-blue font-medium">Informasi kelas</h2>
         {
-          isLoading ? <Loading /> : detailClass ? <TableListClass classes={detailClass && detailClass} /> : <ContentNotFound text="Informasi kelas tidak tersedia" />
+          isLoading ? <Loading /> : detailFlock ? <TableListClass classes={detailFlock && detailFlock.classes} /> : <ContentNotFound text="Informasi kelas tidak tersedia" />
         }
       </div>
     </div>

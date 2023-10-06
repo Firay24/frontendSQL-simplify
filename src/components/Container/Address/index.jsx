@@ -15,19 +15,19 @@ function AddressSection({ data, isBoard }) {
                   <h3 className="text-sm text-grey-light font-normal">Alamat</h3>
                   <div className="flex flex-col gap-y-1 mt-3">
                     <p>Negara</p>
-                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.country)}</p>
+                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.country)}</p>
                   </div>
                   <div className="flex flex-col gap-y-1 mt-3">
-                    <p>{data && data.address && data.address.country === 'malaysia' ? 'Negara bagian' : 'Provinsi'}</p>
-                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.province)}</p>
+                    <p>{data && data.country === 'malaysia' ? 'Negara bagian' : 'Provinsi'}</p>
+                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.province)}</p>
                   </div>
                   <div className="flex flex-col gap-y-1 mt-3">
-                    <p>{data && data.address && data.address.country === 'malaysia' ? 'Daerah' : 'Kabupaten/kota'}</p>
-                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.regency)}</p>
+                    <p>{data && data.country === 'malaysia' ? 'Daerah' : 'Kabupaten/kota'}</p>
+                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.regency)}</p>
                   </div>
                   <div className="flex flex-col gap-y-1 mt-3">
                     <p>Link Gmaps</p>
-                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.address.linkGmaps}</p>
+                    <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.linkGmaps}</p>
                   </div>
                 </div>
                 <div className="flex gap-x-5">
@@ -35,16 +35,16 @@ function AddressSection({ data, isBoard }) {
                   <div>
                     <h3 className="text-sm text-grey-light font-normal">Alamat</h3>
                     <div className="flex flex-col gap-y-1 mt-3">
-                      <p>{data && data.address && data.address.country === 'malaysia' ? 'Mukim' : 'Kecamatan'}</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.subdistrict)}</p>
+                      <p>{data && data.country === 'malaysia' ? 'Mukim' : 'Kecamatan'}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.subdistrict)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
-                      <p>{data && data.address && data.address.country === 'malaysia' ? 'Kampung' : 'Kelurahan/Desa'}</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.ward)}</p>
+                      <p>{data && data.country === 'malaysia' ? 'Kampung' : 'Kelurahan/Desa'}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.ward)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
                       <p>Alamat detail</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.address.details}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.detailsAddress}</p>
                     </div>
                   </div>
                 </div>
@@ -58,31 +58,31 @@ function AddressSection({ data, isBoard }) {
                   <div className="text-xs text-grey-light mt-3 mb-5">
                     <div className="flex flex-col gap-y-1">
                       <p>Negara</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.country)}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.country)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
-                      <p>{data && data.address && data.address.country === 'malaysia' ? 'Negara bagian' : 'Provinsi'}</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.province)}</p>
+                      <p>{data && data.country === 'malaysia' ? 'Negara bagian' : 'Provinsi'}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.province)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
-                      <p>{data && data.address && data.address.country === 'malaysia' ? 'Daerah' : 'Kabupaten/kota'}</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.regency)}</p>
+                      <p>{data && data.country === 'malaysia' ? 'Daerah' : 'Kabupaten/kota'}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.regency)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
-                      <p>{data && data.address && data.address.country === 'malaysia' ? 'Mukim' : 'Kecamatan'}</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.subdistrict)}</p>
+                      <p>{data && data.country === 'malaysia' ? 'Mukim' : 'Kecamatan'}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.subdistrict)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
-                      <p>{data && data.address && data.address.country === 'malaysia' ? 'Kampung' : 'Kelurahan/Desa'}</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.address.ward)}</p>
+                      <p>{data && data.country === 'malaysia' ? 'Kampung' : 'Kelurahan/Desa'}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : convertToTitleCase(data.ward)}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
                       <p>Alamat detail</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.address.details}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.detailsAddress}</p>
                     </div>
                     <div className="flex flex-col gap-y-1 mt-3">
                       <p>Link google maps</p>
-                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.address.linkGmaps}</p>
+                      <p className="text-basic-grey text-sm font-medium">{data.length === 0 ? '' : data.linkGmaps}</p>
                     </div>
                   </div>
                 </div>

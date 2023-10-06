@@ -53,7 +53,7 @@ async function register({
 
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     alert(responseJson.message);
     return { error: true };
   }
@@ -77,8 +77,8 @@ async function getFlocks() {
   const response = await fetchWithToken(`${BASE_URL}/flocks`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 200) {
-    alert(responseJson.message);
+  if (response.status !== 200) {
+    console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
@@ -86,10 +86,10 @@ async function getFlocks() {
 }
 
 async function getFlock(id) {
-  const response = await fetch(`${BASE_URL}/flocks/getFlock/${id}`);
+  const response = await fetch(`${BASE_URL}/flocks/${id}`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: null };
   }
@@ -256,7 +256,7 @@ async function getFunctionals() {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+    console.log(responseJson.message);
     return { error: true, data: [] };
   }
 

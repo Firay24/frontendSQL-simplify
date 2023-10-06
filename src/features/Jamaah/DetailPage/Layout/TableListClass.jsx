@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import TableSection from 'components/Table';
 
 function TableListClass({ classes }) {
-  const columnsName = ['Nama kelas', 'Pelaksanaan', 'Lokasi'];
-  const rowsName = ['name', 'time', 'location'];
+  const columnsName = ['Nama kelas', 'Pelaksanaan', 'Lokasi', 'Action'];
+  const rowsName = ['nameClass', 'times', 'location'];
   return (
     <div>
       <TableSection

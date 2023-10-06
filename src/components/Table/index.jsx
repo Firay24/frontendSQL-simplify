@@ -9,7 +9,7 @@ import HeaderItem from './HeaderItem';
 import RowItem from './RowItem';
 
 function TableSection({
-  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses = false, isSuluk = false, isNotes = false, idFlock,
+  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses, isSuluk,
 }) {
   return (
     <div className="relative overflow-x-auto mt-5 drop-shadow-sm">
@@ -17,30 +17,20 @@ function TableSection({
         <HeaderItem columns={columnsName} />
         <tbody>
           {
-            isClasses || isSuluk || isNotes
-              ? data && data.details.map((item) => (
-                <RowItem
-                  key={item.id}
-                  data={item}
-                  rows={rowsName}
-                  isClasses={isClasses}
-                  isSuluk={isSuluk}
-                  pathDetail={`${pathDetail}${idFlock}/${item.id}`}
-                  pathEdit={`${pathEdit}${idFlock}/${item.id}`}
-                />
-              ))
-              : data && data.map((item) => (
-                <RowItem
-                  key={item.id}
-                  data={item}
-                  rows={rowsName}
-                  pathDetail={`${pathDetail}${item.id}`}
-                  pathEdit={`${pathEdit}${item.id}`}
-                  pathNote={`${pathNote}${item.id}`}
-                  regency={item.regency !== '' ? item.regency : ' '}
-                />
-              ))
-            }
+            data && data.map((item) => (
+              <RowItem
+                key={item.id}
+                data={item}
+                rows={rowsName}
+                isClasses={isClasses}
+                isSuluk={isSuluk}
+                pathDetail={`${pathDetail}${item.id}`}
+                pathEdit={`${pathEdit}${item.id}`}
+                pathNote={`${pathNote}${item.id}`}
+                regency={item.regency !== '' ? item.regency : ' '}
+              />
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -59,14 +49,11 @@ TableSection.propTypes = {
   pathNote: PropTypes.string,
   isClasses: PropTypes.bool,
   isSuluk: PropTypes.bool,
-  isNotes: PropTypes.bool,
-  idFlock: PropTypes.string,
 };
 
 TableSection.defaultProps = {
   isClasses: false,
   isSuluk: false,
-  isNotes: false,
 };
 
 export default TableSection;
