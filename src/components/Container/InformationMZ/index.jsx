@@ -30,11 +30,11 @@ function InformationMZ({ flock }) {
             </div>
             <div className="flex flex-col gap-y-1 mt-3">
               <p>Suluk ke-</p>
-              <p className="text-basic-grey text-sm font-medium">{flock && flock.suluk}</p>
+              <p className="text-basic-grey text-sm font-medium">{flock && flock.countSuluk}</p>
             </div>
             <div className="flex flex-col gap-y-1 mt-3">
               <p>Kaji</p>
-              <p className="text-basic-grey text-sm font-medium">{flock && flock.kaji}</p>
+              <p className="text-basic-grey text-sm font-medium">{flock && flock.kajiSuluk}</p>
             </div>
           </div>
         </div>
