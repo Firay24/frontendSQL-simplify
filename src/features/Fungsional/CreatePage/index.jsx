@@ -102,7 +102,7 @@ function CreatePage() {
     setHasSubmitted(true);
   };
 
-  // add data process
+  // add data process handler
   const handleAddFlock = async (flockData) => {
     try {
       const response = await addFlock(flockData);
