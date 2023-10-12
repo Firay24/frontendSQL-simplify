@@ -10,13 +10,9 @@ import SubmitButton from 'components/Button/ButtonOnClick';
 import Loading from 'components/Loading';
 
 function EditDataSection({
-  flock, functional, classes, suluk, notes, updateFlock, updateFunctional, updateClass, updateSuluk, updateNote, updatePersonalData, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward,
+  flock, updateFlock, province, selectedProvince, regency, selectedRegency, subdistrict, selectedSubdistrict, ward, isFunctional,
 }) {
   const [dataComponent, setDataComponent] = useState({});
-  const [dataFunctional, setDataFunctional] = useState({});
-  const [dataClass, setDataClass] = useState({});
-  const [dataSuluk, setDataSuluk] = useState({});
-  const [dataNote, setDataNote] = useState({});
   const [buttonOnClick, setButtonOnClik] = useState(false);
   const [selectedGender, setSelectedGender] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -31,12 +27,6 @@ function EditDataSection({
 
   const handleSubmitButton = () => {
     updateFlock(dataComponent);
-    if (functional.data !== null) {
-      updateFunctional(dataFunctional);
-    }
-    updateClass(dataClass && dataClass);
-    updateSuluk(dataSuluk && dataSuluk);
-    updateNote(dataNote && dataNote);
     setButtonOnClik(true);
   };
 
@@ -50,58 +40,6 @@ function EditDataSection({
 
   useEffect(() => {
     setButtonOnClik(false);
-  }, [dataComponent]);
-
-  useEffect(() => {
-    const updatedAt = new Date();
-    if (functional !== undefined) {
-      setDataFunctional(() => ({
-        ...functional, // Keep other attributes from functional
-        fathersName: dataComponent.fathersName,
-        nik: dataComponent.nik,
-        name: dataComponent.name,
-        updatedAt,
-      }));
-    }
-  }, [dataComponent]);
-
-  useEffect(() => {
-    const updatedAt = new Date();
-    if (classes !== undefined) {
-      setDataClass(() => ({
-        ...classes,
-        fathersName: dataComponent.fathersName,
-        nik: dataComponent.nik,
-        name: dataComponent.name,
-        updatedAt,
-      }));
-    }
-  }, [dataComponent]);
-
-  useEffect(() => {
-    const updatedAt = new Date();
-    if (suluk !== undefined) {
-      setDataSuluk(() => ({
-        ...suluk,
-        fathersName: dataComponent.fathersName,
-        nik: dataComponent.nik,
-        name: dataComponent.name,
-        updatedAt,
-      }));
-    }
-  }, [dataComponent]);
-
-  useEffect(() => {
-    const updatedAt = new Date();
-    if (notes !== undefined) {
-      setDataNote(() => ({
-        ...notes,
-        fathersName: dataComponent.fathersName,
-        nik: dataComponent.nik,
-        name: dataComponent.name,
-        updatedAt,
-      }));
-    }
   }, [dataComponent]);
 
   useEffect(() => {
@@ -122,8 +60,8 @@ function EditDataSection({
                   onInputChange={handleInputChange}
                   buttonOnClick={buttonOnClick}
                   sendGender={handlerSelectedGender}
-                  updatePersonalData={updatePersonalData}
                   confirmInputIsNull={handlerConfirmIsNullOnInput}
+                  isFunctional={isFunctional}
                 />
               )
           }
@@ -169,16 +107,7 @@ function EditDataSection({
 
 EditDataSection.propTypes = {
   flock: PropTypes.object,
-  functional: PropTypes.object,
-  classes: PropTypes.object,
-  suluk: PropTypes.object,
-  notes: PropTypes.object,
   updateFlock: PropTypes.func,
-  updateFunctional: PropTypes.func,
-  updateClass: PropTypes.func,
-  updateSuluk: PropTypes.func,
-  updateNote: PropTypes.func,
-  updatePersonalData: PropTypes.func,
   province: PropTypes.object,
   selectedProvince: PropTypes.func,
   regency: PropTypes.object,
@@ -186,6 +115,7 @@ EditDataSection.propTypes = {
   subdistrict: PropTypes.object,
   selectedSubdistrict: PropTypes.func,
   ward: PropTypes.object,
+  isFunctional: PropTypes.bool,
 };
 
 export default EditDataSection;

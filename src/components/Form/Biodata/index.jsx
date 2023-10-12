@@ -9,21 +9,19 @@ import PropTypes from 'prop-types';
 import convertToTitleCase from 'utils/convertToTitleCase';
 
 function BiodataContainer({
-  onInputChange, updatePersonalData, buttonOnClick, sendGender, prevFlock, confirmInputIsNull, formData, isFunctional,
+  prevFlock, onInputChange, buttonOnClick, sendGender, confirmInputIsNull, isFunctional,
 }) {
   const [flock, setFlock] = useState({
     name: '',
-    placesBirth: '',
-    datesBirth: '',
     nik: '',
     fathersName: '',
+    placesBirth: '',
+    datesBirth: '',
     gender: '',
     job: '',
     numberPhone: '',
     mzOrigin: '',
     yearEnteredTN: '',
-    kaji: '',
-    suluk: '',
   });
   const [onInputIsNull, setOnInputIsNull] = useState(true);
   const [isInputTouched, setIsInputTouched] = useState({
@@ -33,28 +31,19 @@ function BiodataContainer({
   });
 
   useEffect(() => {
-    if (formData !== null && formData !== undefined) {
-      setFlock({
-        name: '',
-        nik: formData.nik,
-        fathersName: formData.fathersName,
-      });
-    }
-  }, [formData]);
-
-  useEffect(() => {
     if (prevFlock !== null && prevFlock !== undefined) {
       setFlock({
-        id: prevFlock._id,
+        id: prevFlock.id,
         name: convertToTitleCase(prevFlock.name),
-        placesBirth: convertToTitleCase(prevFlock.placesBirth),
-        datesBirth: prevFlock.datesBirth.substr(0, 10),
         nik: prevFlock.nik,
         fathersName: convertToTitleCase(prevFlock.fathersName),
+        placesBirth: convertToTitleCase(prevFlock.placesBirth),
+        datesBirth: prevFlock.datesBirth.substr(0, 10),
         gender: prevFlock.gender,
         job: convertToTitleCase(prevFlock.job),
         numberPhone: prevFlock.numberPhone,
         mzOrigin: prevFlock.mzOrigin,
+        yearEnteredTN: prevFlock.yearEnteredTN,
       });
     }
   }, [prevFlock]);
@@ -74,14 +63,6 @@ function BiodataContainer({
       ...prevState,
       [name]: value,
     }));
-
-    if (updatePersonalData) {
-      updatePersonalData(
-        name === 'name' ? value : flock.name,
-        name === 'nik' ? value : flock.nik,
-        name === 'fathersName' ? value : flock.fathersName,
-      );
-    }
   };
 
   const handleInputBlur = (inputName) => {
@@ -269,12 +250,10 @@ function BiodataContainer({
 
 BiodataContainer.propTypes = {
   onInputChange: PropTypes.func.isRequired,
-  updatePersonalData: PropTypes.func,
   buttonOnClick: PropTypes.bool,
   sendGender: PropTypes.func,
   prevFlock: PropTypes.object,
   confirmInputIsNull: PropTypes.func,
-  formData: PropTypes.object,
   isFunctional: PropTypes.bool,
 };
 

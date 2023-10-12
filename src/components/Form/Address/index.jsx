@@ -20,78 +20,68 @@ function AddressContainer({
   isBoard,
 }) {
   const [flock, setFlock] = useState({
-    address: {
-      country: '',
-      province: '',
-      regency: '',
-      subdistrict: '',
-      ward: '',
-      linkGmaps: '',
-      details: '',
-    },
+    country: '',
+    province: '',
+    regency: '',
+    subdistrict: '',
+    ward: '',
+    linkGmaps: '',
+    details: '',
   });
 
   const handleOptionChange = (event) => {
     const newValue = event.target.value;
     setFlock({
-      address: {
-        country: newValue,
-      },
+      country: newValue,
     });
   };
 
   useEffect(() => {
     if (prevFlock !== null && prevFlock !== undefined) {
       setFlock({
-        address: {
-          country: prevFlock.address.country,
-          province: prevFlock.address.province,
-          regency: prevFlock.address.regency,
-          subdistrict: prevFlock.address.subdistrict,
-          ward: prevFlock.address.ward,
-          linkGmaps: prevFlock.address.linkGmaps,
-          details: prevFlock.address.details,
-        },
+        country: prevFlock.country,
+        province: prevFlock.province,
+        regency: prevFlock.regency,
+        subdistrict: prevFlock.subdistrict,
+        ward: prevFlock.ward,
+        linkGmaps: prevFlock.linkGmaps,
+        details: prevFlock.details,
       });
     }
   }, [prevFlock]);
 
   useEffect(() => {
-    if (prevFlock !== null && prevFlock !== undefined && prevFlock.address.country === flock.address.country) {
+    if (prevFlock !== null && prevFlock !== undefined && prevFlock.country === flock.country) {
       setFlock({
-        address: {
-          country: flock.address.country,
-          province: prevFlock.address.province,
-          regency: prevFlock.address.regency,
-          subdistrict: prevFlock.address.subdistrict,
-          ward: prevFlock.address.ward,
-          linkGmaps: prevFlock.address.linkGmaps,
-          details: prevFlock.address.details,
-        },
+        country: flock.country,
+        province: prevFlock.province,
+        regency: prevFlock.regency,
+        subdistrict: prevFlock.subdistrict,
+        ward: prevFlock.ward,
+        linkGmaps: prevFlock.linkGmaps,
+        details: prevFlock.details,
       });
     }
-  }, [flock.address.country]);
+  }, [flock.country]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFlock((prevState) => ({
-      address: {
-        ...prevState.address,
-        [name]: value,
-      },
+      ...prevState,
+      [name]: value,
     }));
   };
 
   useEffect(() => {
-    selectedProvince(flock.address.province);
+    selectedProvince(flock.province);
   }, [flock, selectedProvince]);
 
   useEffect(() => {
-    selectedRegency(flock.address.regency);
+    selectedRegency(flock.regency);
   }, [flock, selectedRegency]);
 
   useEffect(() => {
-    selectedSubdistrict(flock.address.subdistrict);
+    selectedSubdistrict(flock.subdistrict);
   }, [flock, selectedSubdistrict]);
 
   useEffect(() => {
@@ -101,14 +91,13 @@ function AddressContainer({
   useEffect(() => {
     if (buttonOnClick) {
       setFlock({
-        address: {
-          province: '',
-          regency: '',
-          subdistrict: '',
-          ward: '',
-          linkGmaps: '',
-          details: '',
-        },
+        country: '',
+        province: '',
+        regency: '',
+        subdistrict: '',
+        ward: '',
+        linkGmaps: '',
+        details: '',
       });
     }
   }, [buttonOnClick]);
@@ -125,7 +114,7 @@ function AddressContainer({
               type="radio"
               value="indonesia"
               onChange={handleOptionChange}
-              checked={flock.address.country === 'indonesia'}
+              checked={flock.country === 'indonesia'}
               className="w-3 h-3 text-basic-blue outline-none focus:ring-0"
             />
             <label htmlFor="country1">Indonesia</label>
@@ -135,7 +124,7 @@ function AddressContainer({
               name="country2"
               type="radio"
               value="malaysia"
-              checked={flock.address.country === 'malaysia'}
+              checked={flock.country === 'malaysia'}
               onChange={handleOptionChange}
               className="w-3 h-3 text-basic-blue outline-none focus:ring-0"
             />
@@ -144,19 +133,19 @@ function AddressContainer({
         </div>
       </div>
       {
-        flock.address.country ? (
+        flock.country ? (
           <form className="flex flex-col gap-y-2">
             { isBoard ? (
               <div className="grid grid-cols-2 gap-x-16">
                 <div className="flex flex-col gap-y-2">
                   <div className="grid grid-cols-2 items-center">
-                    <label htmlFor="province">{flock.address.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
+                    <label htmlFor="province">{flock.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
                     {
                       flock.address.country === 'indonesia' ? (
                         <select
                           name="province"
                           id="province"
-                          value={flock.address.province}
+                          value={flock.province}
                           onChange={handleInputChange}
                           className="rounded text-xs border-gray-400"
                         >
@@ -172,7 +161,7 @@ function AddressContainer({
                           type="text"
                           name="province"
                           id="province"
-                          value={flock.address.province ? convertToTitleCase(flock.address.province) : null}
+                          value={flock.province ? convertToTitleCase(flock.province) : null}
                           onChange={handleInputChange}
                           autoComplete="new-password"
                           className="rounded text-xs border-gray-400"
@@ -181,13 +170,13 @@ function AddressContainer({
                     }
                   </div>
                   <div className="grid grid-cols-2 items-center">
-                    <label htmlFor="regency">{flock.address.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
+                    <label htmlFor="regency">{flock.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
                     {
-                      flock.address.country === 'indonesia' ? (
+                      flock.country === 'indonesia' ? (
                         <select
                           name="regency"
                           id="regency"
-                          value={flock.address.regency}
+                          value={flock.regency}
                           onChange={handleInputChange}
                           className="rounded text-xs border-gray-400"
                         >
@@ -203,7 +192,7 @@ function AddressContainer({
                           type="text"
                           name="regency"
                           id="regency"
-                          value={flock.address.regency ? convertToTitleCase(flock.address.regency) : null}
+                          value={flock.regency ? convertToTitleCase(flock.regency) : null}
                           onChange={handleInputChange}
                           autoComplete="new-password"
                           className="rounded text-xs border-gray-400"
@@ -217,7 +206,7 @@ function AddressContainer({
                       type="url"
                       id="linkGmaps"
                       name="linkGmaps"
-                      value={flock.address.linkGmaps}
+                      value={flock.linkGmaps}
                       onChange={handleInputChange}
                       autoComplete="new-password"
                       className="rounded text-xs border-gray-400"
@@ -226,13 +215,13 @@ function AddressContainer({
                 </div>
                 <div className="flex flex-col gap-y-2">
                   <div className="grid grid-cols-2 items-center">
-                    <label htmlFor="subdistrict">{flock.address.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
+                    <label htmlFor="subdistrict">{flock.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
                     {
-                      flock.address.country === 'indonesia' ? (
+                      flock.country === 'indonesia' ? (
                         <select
                           name="subdistrict"
                           id="subdistrict"
-                          value={flock.address.subdistrict}
+                          value={flock.subdistrict}
                           onChange={handleInputChange}
                           className="rounded text-xs border-gray-400"
                         >
@@ -248,7 +237,7 @@ function AddressContainer({
                           type="text"
                           name="subdistrict"
                           id="subdistrict"
-                          value={flock.address.subdistrict ? convertToTitleCase(flock.address.subdistrict) : null}
+                          value={flock.subdistrict ? convertToTitleCase(flock.subdistrict) : null}
                           onChange={handleInputChange}
                           autoComplete="new-password"
                           className="rounded text-xs border-gray-400"
@@ -257,13 +246,13 @@ function AddressContainer({
                     }
                   </div>
                   <div className="grid grid-cols-2 items-center">
-                    <label htmlFor="ward">{flock.address.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
+                    <label htmlFor="ward">{flock.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
                     {
-                      flock.address.country === 'indonesia' ? (
+                      flock.country === 'indonesia' ? (
                         <select
                           name="ward"
                           id="ward"
-                          value={flock.address.ward}
+                          value={flock.ward}
                           onChange={handleInputChange}
                           className="rounded text-xs border-gray-400"
                         >
@@ -279,7 +268,7 @@ function AddressContainer({
                           type="text"
                           name="ward"
                           id="ward"
-                          value={flock.address.ward ? convertToTitleCase(flock.address.ward) : null}
+                          value={flock.ward ? convertToTitleCase(flock.ward) : null}
                           onChange={handleInputChange}
                           autoComplete="new-password"
                           className="rounded text-xs border-gray-400"
@@ -293,7 +282,7 @@ function AddressContainer({
                       type="text"
                       id="details"
                       name="details"
-                      value={flock.address.details}
+                      value={flock.details}
                       onChange={handleInputChange}
                       autoComplete="new-password"
                       className="rounded text-xs border-gray-400"
@@ -304,13 +293,13 @@ function AddressContainer({
             ) : (
               <div className="flex flex-col gap-y-2">
                 <div className="grid grid-cols-2 items-center">
-                  <label htmlFor="province">{flock.address.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
+                  <label htmlFor="province">{flock.country === 'indonesia' ? 'Provinsi' : 'Negara bagian'}</label>
                   {
-                    flock.address.country === 'indonesia' ? (
+                    flock.country === 'indonesia' ? (
                       <select
                         name="province"
                         id="province"
-                        value={flock.address.province}
+                        value={flock.province}
                         onChange={handleInputChange}
                         className="rounded text-xs border-gray-400"
                       >
@@ -326,7 +315,7 @@ function AddressContainer({
                         type="text"
                         name="province"
                         id="province"
-                        value={flock.address.province ? convertToTitleCase(flock.address.province) : null}
+                        value={flock.province ? convertToTitleCase(flock.province) : null}
                         onChange={handleInputChange}
                         autoComplete="new-password"
                         className="rounded text-xs border-gray-400"
@@ -335,13 +324,13 @@ function AddressContainer({
                   }
                 </div>
                 <div className="grid grid-cols-2 items-center">
-                  <label htmlFor="regency">{flock.address.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
+                  <label htmlFor="regency">{flock.country === 'indonesia' ? 'Kabupaten' : 'Daerah'}</label>
                   {
-                    flock.address.country === 'indonesia' ? (
+                    flock.country === 'indonesia' ? (
                       <select
                         name="regency"
                         id="regency"
-                        value={flock.address.regency}
+                        value={flock.regency}
                         onChange={handleInputChange}
                         className="rounded text-xs border-gray-400"
                       >
@@ -357,7 +346,7 @@ function AddressContainer({
                         type="text"
                         name="regency"
                         id="regency"
-                        value={flock.address.regency ? convertToTitleCase(flock.address.regency) : null}
+                        value={flock.regency ? convertToTitleCase(flock.regency) : null}
                         onChange={handleInputChange}
                         autoComplete="new-password"
                         className="rounded text-xs border-gray-400"
@@ -366,13 +355,13 @@ function AddressContainer({
                   }
                 </div>
                 <div className="grid grid-cols-2 items-center">
-                  <label htmlFor="subdistrict">{flock.address.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
+                  <label htmlFor="subdistrict">{flock.country === 'indonesia' ? 'Kecamatan' : 'Mukim'}</label>
                   {
-                    flock.address.country === 'indonesia' ? (
+                    flock.country === 'indonesia' ? (
                       <select
                         name="subdistrict"
                         id="subdistrict"
-                        value={flock.address.subdistrict}
+                        value={flock.subdistrict}
                         onChange={handleInputChange}
                         className="rounded text-xs border-gray-400"
                       >
@@ -388,7 +377,7 @@ function AddressContainer({
                         type="text"
                         name="subdistrict"
                         id="subdistrict"
-                        value={flock.address.subdistrict ? convertToTitleCase(flock.address.subdistrict) : null}
+                        value={flock.subdistrict ? convertToTitleCase(flock.subdistrict) : null}
                         onChange={handleInputChange}
                         autoComplete="new-password"
                         className="rounded text-xs border-gray-400"
@@ -397,13 +386,13 @@ function AddressContainer({
                   }
                 </div>
                 <div className="grid grid-cols-2 items-center">
-                  <label htmlFor="ward">{flock.address.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
+                  <label htmlFor="ward">{flock.country === 'indonesia' ? 'Kelurahan' : 'Kampung'}</label>
                   {
-                    flock.address.country === 'indonesia' ? (
+                    flock.country === 'indonesia' ? (
                       <select
                         name="ward"
                         id="ward"
-                        value={flock.address.ward}
+                        value={flock.ward}
                         onChange={handleInputChange}
                         className="rounded text-xs border-gray-400"
                       >
@@ -419,7 +408,7 @@ function AddressContainer({
                         type="text"
                         name="ward"
                         id="ward"
-                        value={flock.address.ward ? convertToTitleCase(flock.address.ward) : null}
+                        value={flock.ward ? convertToTitleCase(flock.ward) : null}
                         onChange={handleInputChange}
                         autoComplete="new-password"
                         className="rounded text-xs border-gray-400"
@@ -433,7 +422,7 @@ function AddressContainer({
                     type="url"
                     id="linkGmaps"
                     name="linkGmaps"
-                    value={flock.address.linkGmaps}
+                    value={flock.linkGmaps}
                     onChange={handleInputChange}
                     autoComplete="new-password"
                     className="rounded text-xs border-gray-400"
@@ -445,7 +434,7 @@ function AddressContainer({
                     type="text"
                     id="details"
                     name="details"
-                    value={flock.address.details}
+                    value={flock.details}
                     onChange={handleInputChange}
                     autoComplete="new-password"
                     className="rounded text-xs border-gray-400"

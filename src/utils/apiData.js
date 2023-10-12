@@ -97,6 +97,18 @@ async function getFlock(id) {
   return { error: false, data: responseJson.data };
 }
 
+async function getIsFunctional(id) {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/functional/${id}`);
+  const responseJson = await response.json();
+
+  if (response.status !== 200) {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data };
+}
+
 async function addFlock({
   name, placesBirth, datesBirth, nik, fathersName, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address,
 }) {
@@ -121,26 +133,26 @@ async function addFlock({
 }
 
 async function updateFlock({
-  id, name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address,
+  id, name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, country, province, regency, subdistrict, ward, linkGmaps, details,
 }) {
-  const response = await fetchWithToken(`${BASE_URL}/flocks/updateFlockWithoutToken/${id}`, {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, kaji, suluk, address,
+      name, nik, fathersName, placesBirth, datesBirth, gender, job, numberPhone, mzOrigin, yearEnteredTN, country, province, regency, subdistrict, ward, linkGmaps, details,
     }),
   });
 
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+  if (response.status !== 200) {
+    console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 async function importFileFlocks(file) {
@@ -609,6 +621,7 @@ export {
   addBoard,
   updateBoard,
   importFileBoards,
+  getIsFunctional,
   getFunctionals,
   getFunctional,
   addFunctional,
