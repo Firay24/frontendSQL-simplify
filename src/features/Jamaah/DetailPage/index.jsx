@@ -64,23 +64,48 @@ function DetailPage() {
   return (
     <div className="mt-4 mr-10 mb-6">
       <div>
-        <Header name={detailFlock !== undefined ? detailFlock.name : ''} nik={detailFlock !== undefined ? detailFlock.nik : ''} isFunctional={functional === undefined} />
+        <Header
+          name={detailFlock !== undefined ? detailFlock.name : ''}
+          nik={detailFlock !== undefined ? detailFlock.nik : ''}
+          isFunctional={functional === undefined}
+        />
       </div>
       <div>
         {
-          isLoading ? <Loading /> : <DetailsContainer id={id} flock={detailFlock !== null && detailFlock !== undefined ? detailFlock : []} />
+          isLoading ? <Loading />
+            : (
+              <DetailsContainer
+                id={id}
+                flock={detailFlock !== null && detailFlock !== undefined ? detailFlock : []}
+              />
+            )
         }
       </div>
       <div className="mt-10">
         <h2 className="text-base text-basic-blue font-medium">Informasi suluk</h2>
         {
-          isLoading ? <Loading /> : detailFlock ? <TableListSuluk suluks={detailFlock && detailFlock.suluks} /> : <ContentNotFound text="Informasi suluk tidak tersedia" />
+          isLoading ? <Loading />
+            : detailFlock
+              ? (
+                <TableListSuluk
+                  suluks={detailFlock && detailFlock.suluks}
+                  idFlock={id}
+                />
+              )
+              : <ContentNotFound text="Informasi suluk tidak tersedia" />
         }
       </div>
       <div className="mt-8">
         <h2 className="text-base text-basic-blue font-medium">Informasi kelas</h2>
         {
-          isLoading ? <Loading /> : detailFlock ? <TableListClass classes={detailFlock && detailFlock.classes} /> : <ContentNotFound text="Informasi kelas tidak tersedia" />
+          isLoading ? <Loading />
+            : detailFlock
+              ? (
+                <TableListClass
+                  classes={detailFlock && detailFlock.classes}
+                  idFlock={id}
+                />
+              ) : <ContentNotFound text="Informasi kelas tidak tersedia" />
         }
       </div>
     </div>
