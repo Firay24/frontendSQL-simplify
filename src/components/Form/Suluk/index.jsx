@@ -2,11 +2,49 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SubmitButton from 'components/Button/ButtonOnClick';
 
-function ContainerExtra({ kaji, suluk, gender }) {
+function ContainerExtra({
+  kaji, suluk, addSuluk, updateSuluk, flock,
+}) {
+  const [sulukInfo, setSuluk] = useState({
+    nameSuluk: '',
+    sulukTo: '',
+    location: '',
+    times: '',
+    prevKaji: '',
+    afterKaji: '',
+    notes: '',
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setSuluk((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (addSuluk) {
+      addSuluk(sulukInfo);
+    } else if (updateSuluk) {
+      updateSuluk(sulukInfo);
+    }
+  };
+
+  useEffect(() => {
+    if (flock && flock.suluks) {
+      const maxSulukTo = Math.max(...flock.suluks.map((item) => item.sulukTo));
+      setSuluk({
+        sulukTo: maxSulukTo + 1,
+      });
+    }
+  }, []);
+
   return (
     <div>
       <form>
@@ -15,10 +53,12 @@ function ContainerExtra({ kaji, suluk, gender }) {
           <div className="grid grid-cols-2 gap-x-14">
             <div className="flex flex-col gap-y-2">
               <div className="grid grid-cols-2 items-center">
-                <label htmlFor="name">Nama Suluk</label>
+                <label htmlFor="nameSuluk">Nama Suluk</label>
                 <select
-                  name="name"
-                  id="id"
+                  name="nameSuluk"
+                  id="nameSuluk"
+                  value={sulukInfo.nameSuluk}
+                  onChange={handleInputChange}
                   className="rounded text-xs border-gray-400"
                 >
                   <option value="">Pilih</option>
@@ -35,6 +75,8 @@ function ContainerExtra({ kaji, suluk, gender }) {
                   name="sulukTo"
                   id="sulukTo"
                   type="number"
+                  value={sulukInfo.sulukTo}
+                  onChange={handleInputChange}
                   required
                   className="rounded text-xs border-gray-400"
                 />
@@ -45,6 +87,8 @@ function ContainerExtra({ kaji, suluk, gender }) {
                   name="location"
                   id="location"
                   type="text"
+                  value={sulukInfo.location}
+                  onChange={handleInputChange}
                   required
                   className="rounded text-xs border-gray-400"
                 />
@@ -55,6 +99,8 @@ function ContainerExtra({ kaji, suluk, gender }) {
                   name="times"
                   id="times"
                   type="date"
+                  value={sulukInfo.times}
+                  onChange={handleInputChange}
                   required
                   className="rounded text-xs border-gray-400"
                 />
@@ -66,13 +112,15 @@ function ContainerExtra({ kaji, suluk, gender }) {
                 <select
                   name="prevKaji"
                   id="prevKaji"
+                  value={sulukInfo.prevKaji}
+                  onChange={handleInputChange}
                   className="rounded text-xs border-gray-400"
                 >
                   <option value="">Pilih</option>
-                  {gender === 'Laki-laki' && kaji.male.map((item, index) => (
+                  {flock.gender === 'Laki-laki' && kaji.male.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
-                  {gender === 'Perempuan' && kaji.female.map((item, index) => (
+                  {flock.gender === 'Perempuan' && kaji.female.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
                 </select>
@@ -82,13 +130,15 @@ function ContainerExtra({ kaji, suluk, gender }) {
                 <select
                   name="afterKaji"
                   id="afterKaji"
+                  value={sulukInfo.afterKaji}
+                  onChange={handleInputChange}
                   className="rounded text-xs border-gray-400"
                 >
                   <option value="">Pilih</option>
-                  {gender === 'Laki-laki' && kaji.male.map((item, index) => (
+                  {flock.gender === 'Laki-laki' && kaji.male.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
-                  {gender === 'Perempuan' && kaji.female.map((item, index) => (
+                  {flock.gender === 'Perempuan' && kaji.female.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
                 </select>
@@ -98,6 +148,8 @@ function ContainerExtra({ kaji, suluk, gender }) {
                 <textarea
                   name="notes"
                   id="notes"
+                  value={sulukInfo.notes}
+                  onChange={handleInputChange}
                   rows="3"
                   className="rounded text-xs border-gray-400 resize-none"
                 />
@@ -116,7 +168,9 @@ function ContainerExtra({ kaji, suluk, gender }) {
 ContainerExtra.prototype = {
   kaji: PropTypes.object,
   suluk: PropTypes.array,
-  gender: PropTypes.string,
+  flock: PropTypes.object,
+  addSuluk: PropTypes.func,
+  updateSuluk: PropTypes.func,
 };
 
 export default ContainerExtra;

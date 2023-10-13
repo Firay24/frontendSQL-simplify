@@ -352,6 +352,29 @@ async function importFileFunctionals(file) {
 }
 
 // SULUK
+async function createSuluk({
+  id, nameSuluk, sulukTo, location, times, prevKaji, afterKaji, notes,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/suluks/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      nameSuluk, sulukTo, location, times, prevKaji, afterKaji, notes,
+    }),
+  });
+
+  const responseJson = response.json();
+
+  if (response.statue !== 200) {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson };
+}
+
 async function getSuluks() {
   const response = await fetch(`${BASE_URL}/suluk/getSuluks`);
   const responseJson = await response.json();
@@ -627,6 +650,7 @@ export {
   addFunctional,
   updateFunctional,
   importFileFunctionals,
+  createSuluk,
   getSuluks,
   updateSuluk,
   getClasses,
