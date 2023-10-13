@@ -17,6 +17,7 @@ function TableListSuluk({ suluks, idFlock }) {
         isSuluk
         idFlock={idFlock}
         path={pathAddSuluk}
+        extra
       />
     </div>
   );

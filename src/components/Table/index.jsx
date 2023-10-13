@@ -11,7 +11,7 @@ import HeaderItem from './HeaderItem';
 import RowItem from './RowItem';
 
 function TableSection({
-  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses, isSuluk, idFlock, path,
+  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses, isSuluk, idFlock, path, extra,
 }) {
   return (
     <div className="relative overflow-x-auto mt-5 drop-shadow-sm">
@@ -33,13 +33,17 @@ function TableSection({
               />
             ))
           }
-          <tr className="bg-white">
-            <td colSpan={rowsName.length + 1} className="px-2 py-1">
-              <div className="flex items-center gap-x-2 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-full">
-                <Button text="Tambah data" addButton styleButton="w-full text-left items-start p-0 justify-start hover:bg-transparent bg-transparent text-gray-800" path={path + idFlock} />
-              </div>
-            </td>
-          </tr>
+          {
+            extra ? (
+              <tr className="bg-white">
+                <td colSpan={rowsName.length + 1} className="px-2 py-1">
+                  <div className="flex items-center text-gray-800 gap-x-2 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-full">
+                    <Button text="Tambah data" addButton styleButton="w-full text-left items-start p-0 justify-start hover:bg-transparent bg-transparent" fontStyle="text-gray-800" path={path + idFlock} />
+                  </div>
+                </td>
+              </tr>
+            ) : null
+          }
         </tbody>
       </table>
     </div>
@@ -60,11 +64,13 @@ TableSection.propTypes = {
   isSuluk: PropTypes.bool,
   idFlock: PropTypes.bool,
   path: PropTypes.string,
+  extra: PropTypes.bool,
 };
 
 TableSection.defaultProps = {
   isClasses: false,
   isSuluk: false,
+  extra: false,
 };
 
 export default TableSection;

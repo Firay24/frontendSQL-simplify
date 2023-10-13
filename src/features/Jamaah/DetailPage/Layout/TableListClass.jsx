@@ -17,6 +17,7 @@ function TableListClass({ classes, idFlock }) {
         isClasses
         path={pathAddClass}
         idFlock={idFlock}
+        extra
       />
     </div>
   );
