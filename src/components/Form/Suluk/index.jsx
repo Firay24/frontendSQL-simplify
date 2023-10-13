@@ -31,6 +31,15 @@ function ContainerExtra({
     event.preventDefault();
     if (addSuluk) {
       addSuluk(sulukInfo);
+      // setSuluk({
+      //   nameSuluk: '',
+      //   sulukTo: '',
+      //   location: '',
+      //   times: '',
+      //   prevKaji: '',
+      //   afterKaji: '',
+      //   notes: '',
+      // });
     } else if (updateSuluk) {
       updateSuluk(sulukInfo);
     }
@@ -39,15 +48,16 @@ function ContainerExtra({
   useEffect(() => {
     if (flock && flock.suluks) {
       const maxSulukTo = Math.max(...flock.suluks.map((item) => item.sulukTo));
-      setSuluk({
+      setSuluk((prevState) => ({
+        ...prevState,
         sulukTo: maxSulukTo + 1,
-      });
+      }));
     }
-  }, []);
+  }, [flock]);
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="text-xs bg-white p-6 rounded drop-shadow-sm h-full mt-5 flex flex-col gap-y-5">
           <p className="text-sm font-medium text-basic-blue mb-2">Suluk</p>
           <div className="grid grid-cols-2 gap-x-14">
@@ -117,10 +127,10 @@ function ContainerExtra({
                   className="rounded text-xs border-gray-400"
                 >
                   <option value="">Pilih</option>
-                  {flock.gender === 'Laki-laki' && kaji.male.map((item, index) => (
+                  {flock && flock.gender && flock.gender === 'Laki-laki' && kaji.male.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
-                  {flock.gender === 'Perempuan' && kaji.female.map((item, index) => (
+                  {flock && flock.gender && flock.gender === 'Perempuan' && kaji.female.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
                 </select>
@@ -135,10 +145,10 @@ function ContainerExtra({
                   className="rounded text-xs border-gray-400"
                 >
                   <option value="">Pilih</option>
-                  {flock.gender === 'Laki-laki' && kaji.male.map((item, index) => (
+                  {flock && flock.gender && flock.gender === 'Laki-laki' && kaji.male.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
-                  {flock.gender === 'Perempuan' && kaji.female.map((item, index) => (
+                  {flock && flock.gender && flock.gender === 'Perempuan' && kaji.female.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
                   ))}
                 </select>

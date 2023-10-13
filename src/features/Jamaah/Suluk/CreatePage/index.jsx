@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Container from 'components/Form/Suluk';
 import { kajiData, sulukData } from 'utils/suluk';
@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 function CreateSulukPage() {
   const [flock, setFlock] = useState({ error: false, data: [] });
   const [infoSuluk, setInfoSuluk] = useState({ error: false, data: [] });
+  const [status, setStatus] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const notifySuccess = () => {
     const message = 'Data berhasil ditambahkan';
@@ -48,6 +50,7 @@ function CreateSulukPage() {
       const response = await createSuluk({ ...value, id });
       setInfoSuluk(response);
       notifySuccess();
+      setStatus(true);
       console.log('Data suluk berhasil ditambahkan', infoSuluk);
     } catch (error) {
       notifyError();
@@ -69,6 +72,14 @@ function CreateSulukPage() {
     fetchData(id);
   });
   const detailFlock = flock && flock.data;
+
+  useEffect(() => {
+    if (status) {
+      setTimeout(() => {
+        navigate(-1);
+      }, 2000);
+    }
+  }, [status]);
 
   return (
     <>
