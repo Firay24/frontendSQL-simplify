@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  getFlock, getFunctionals,
+  getFlock,
 } from 'utils/apiData';
 import Loading from 'components/Loading';
 import ContentNotFound from 'components/404/Content';
@@ -14,8 +14,6 @@ import TableListClass from './Layout/TableListClass';
 
 function DetailPage() {
   const [flock, setFlock] = useState({ error: false, data: [] });
-  const [functionals, setFunctionals] = useState({ error: false, data: [] });
-  const [functional, setFunctional] = useState({ error: false, data: [] });
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,26 +34,6 @@ function DetailPage() {
   const detailFlock = flock && flock.data;
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getFunctionals();
-        setFunctionals(result);
-      } catch (error) {
-        setFunctionals({ error: true, data: [] });
-      }
-    };
-    fetchData();
-  }, []);
-  const dataFunctional = functionals && functionals.data && functionals.data.functionals;
-
-  useEffect(() => {
-    if (detailFlock !== undefined && dataFunctional !== undefined) {
-      const detailFunctional = detailFlock && dataFunctional && dataFunctional.find((functionalData) => functionalData.nik === detailFlock.nik && functionalData.fathersName.toLowerCase() === detailFlock.fathersName.toLowerCase());
-      setFunctional(detailFunctional);
-    }
-  }, [dataFunctional, detailFlock]);
-
-  useEffect(() => {
     if (detailFlock !== undefined) {
       setIsLoading(false);
     }
@@ -65,9 +43,9 @@ function DetailPage() {
     <div className="mt-4 mr-10 mb-6">
       <div>
         <Header
-          name={detailFlock !== undefined ? detailFlock.name : ''}
-          nik={detailFlock !== undefined ? detailFlock.nik : ''}
-          isFunctional={functional === undefined}
+          name={detailFlock && detailFlock !== undefined ? detailFlock.name : ''}
+          nik={detailFlock && detailFlock !== undefined ? detailFlock.nik : ''}
+          isFunctional=""
         />
       </div>
       <div>
@@ -76,7 +54,7 @@ function DetailPage() {
             : (
               <DetailsContainer
                 id={id}
-                flock={detailFlock !== null && detailFlock !== undefined ? detailFlock : []}
+                flock={detailFlock && detailFlock !== null && detailFlock !== undefined ? detailFlock : []}
               />
             )
         }

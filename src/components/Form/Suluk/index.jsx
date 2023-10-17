@@ -31,15 +31,15 @@ function ContainerExtra({
     event.preventDefault();
     if (addSuluk) {
       addSuluk(sulukInfo);
-      // setSuluk({
-      //   nameSuluk: '',
-      //   sulukTo: '',
-      //   location: '',
-      //   times: '',
-      //   prevKaji: '',
-      //   afterKaji: '',
-      //   notes: '',
-      // });
+      setSuluk({
+        nameSuluk: '',
+        sulukTo: '',
+        location: '',
+        times: '',
+        prevKaji: '',
+        afterKaji: '',
+        notes: '',
+      });
     } else if (updateSuluk) {
       updateSuluk(sulukInfo);
     }

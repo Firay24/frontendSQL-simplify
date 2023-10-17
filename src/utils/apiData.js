@@ -367,7 +367,7 @@ async function createSuluk({
 
   const responseJson = response.json();
 
-  if (response.statue !== 200) {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: [] };
   }

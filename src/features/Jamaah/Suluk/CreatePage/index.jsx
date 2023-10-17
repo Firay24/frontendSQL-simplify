@@ -70,7 +70,7 @@ function CreateSulukPage() {
       }
     };
     fetchData(id);
-  });
+  }, [id]);
   const detailFlock = flock && flock.data;
 
   useEffect(() => {
@@ -79,6 +79,7 @@ function CreateSulukPage() {
         navigate(-1);
       }, 2000);
     }
+    setStatus(false);
   }, [status]);
 
   return (
