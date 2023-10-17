@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ParseDateFunc from 'utils/parseDateFunc';
 import convertToTitleCase from 'utils/convertToTitleCase';
+import encryptMessage from 'utils/encrypt';
 
 function BiodataSection({ flock, isFunctional }) {
   return (
@@ -16,7 +17,7 @@ function BiodataSection({ flock, isFunctional }) {
         </div>
         <div className="flex flex-col gap-y-1 mt-3">
           <p>NIK</p>
-          <p className="text-basic-grey text-sm font-medium">{flock !== undefined ? flock.nik : ''}</p>
+          <p className="text-basic-grey text-sm font-medium">{flock !== undefined ? encryptMessage(flock.nik) : ''}</p>
         </div>
         <div className="flex flex-col gap-y-1 mt-3">
           <p>Nama bapak kandung</p>
