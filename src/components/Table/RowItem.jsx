@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/button-has-type */
@@ -9,9 +10,10 @@ import { RxDotFilled } from 'react-icons/rx';
 import ParseDateFunc from '../../utils/parseDateFunc';
 
 function RowItem({
-  rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false,
+  rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false, pathEditExtra,
 }) {
   const [scopeColumn, ...regularColumns] = rows;
+  console.log(pathEditExtra);
 
   return (
     <tr className="bg-white border-b">
@@ -69,7 +71,7 @@ function RowItem({
                     <div className="bg-yellow-100 hover:bg-yellow-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center">
                       <RxDotFilled className="text-base text-yellow-500" />
                       <button className="text-gray-900">
-                        <Link to={pathEdit}>Edit</Link>
+                        <Link to={pathEditExtra}>Edit</Link>
                       </button>
                     </div>
                   </td>
@@ -84,6 +86,7 @@ RowItem.propTypes = {
   data: PropTypes.object,
   pathDetail: PropTypes.string,
   pathEdit: PropTypes.string,
+  pathEditExtra: PropTypes.string,
   pathNote: PropTypes.string,
   regency: PropTypes.string,
   isClasses: PropTypes.bool,

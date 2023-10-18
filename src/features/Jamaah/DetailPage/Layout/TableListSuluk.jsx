@@ -8,6 +8,7 @@ function TableListSuluk({ suluks, idFlock }) {
   const columnsName = ['Suluk Ke', 'Nama Suluk', 'Pelaksanaan', 'Lokasi', 'Kaji Sebelum', 'Kaji setelah', 'Action'];
   const rowsName = ['sulukTo', 'nameSuluk', 'times', 'location', 'prevKaji', 'afterKaji'];
   const pathAddSuluk = '/jamaah/suluk/create/';
+  const pathEditExtra = '/jamaah/suluk/edit/';
   return (
     <div>
       <TableSection
@@ -17,6 +18,7 @@ function TableListSuluk({ suluks, idFlock }) {
         isSuluk
         idFlock={idFlock}
         path={pathAddSuluk}
+        pathEditExtra={pathEditExtra}
         extra
       />
     </div>

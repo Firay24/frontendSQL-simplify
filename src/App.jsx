@@ -36,6 +36,7 @@ import DetailNotePageMZ from 'features/Note/MZ/DetailPage';
 import EditNotePageMZ from 'features/Note/MZ/EditPage';
 
 import CreateSulukPage from 'features/Jamaah/Suluk/CreatePage';
+import EditSulukPage from 'features/Jamaah/Suluk/EditPage';
 
 import ProfilPage from 'features/Profil';
 
@@ -110,6 +111,7 @@ function App() {
           <Route path="/jamaah/catatan/editData/:id/:idNote" element={<EditNotePageJamaah user={authedUser} />} />
           <Route path="/jamaah/catatan/addData/:id" element={<CreateNotePageJamaah />} />
           <Route path="/jamaah/suluk/create/:id" element={<CreateSulukPage />} />
+          <Route path="/jamaah/suluk/edit/:idflock/:id" element={<EditSulukPage />} />
 
           <Route path="/mz/listData" element={<ListPageMZ />} />
           <Route path="/mz/addData" element={<CreatePageMZ />} />

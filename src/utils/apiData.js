@@ -388,25 +388,25 @@ async function getSuluks() {
 }
 
 async function updateSuluk({
-  _id, name, nik, fathersName, details,
+  id, nameSuluk, sulukTo, location, times, prevKaji, afterKaji, notes,
 }) {
-  const response = await fetch(`${BASE_URL}/suluk/updateSulukWithoutVerify/${_id}`, {
+  const response = await fetch(`${BASE_URL}/flocks/suluks/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name, nik, fathersName, details,
+      nameSuluk, sulukTo, location, times, prevKaji, afterKaji, notes,
     }),
   });
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 // CLASS

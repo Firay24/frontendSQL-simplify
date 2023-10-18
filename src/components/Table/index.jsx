@@ -11,7 +11,7 @@ import HeaderItem from './HeaderItem';
 import RowItem from './RowItem';
 
 function TableSection({
-  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses, isSuluk, idFlock, path, extra,
+  columnsName, rowsName, data, pathDetail, pathEdit, pathNote, isClasses, isSuluk, idFlock, path, extra, pathEditExtra,
 }) {
   return (
     <div className="relative overflow-x-auto mt-5 drop-shadow-sm">
@@ -27,6 +27,7 @@ function TableSection({
                 isClasses={isClasses}
                 isSuluk={isSuluk}
                 pathDetail={`${pathDetail}${item.id}`}
+                pathEditExtra={`${pathEditExtra}${idFlock}/${item.id}`}
                 pathEdit={`${pathEdit}${item.id}`}
                 pathNote={`${pathNote}${item.id}`}
                 regency={item.regency !== '' ? item.regency : ' '}
@@ -59,6 +60,7 @@ TableSection.propTypes = {
   ]),
   pathDetail: PropTypes.string,
   pathEdit: PropTypes.string,
+  pathEditExtra: PropTypes.string,
   pathNote: PropTypes.string,
   isClasses: PropTypes.bool,
   isSuluk: PropTypes.bool,
