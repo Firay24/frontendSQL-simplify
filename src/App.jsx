@@ -111,7 +111,7 @@ function App() {
           <Route path="/jamaah/catatan/editData/:id/:idNote" element={<EditNotePageJamaah user={authedUser} />} />
           <Route path="/jamaah/catatan/addData/:id" element={<CreateNotePageJamaah />} />
           <Route path="/jamaah/suluk/create/:id" element={<CreateSulukPage />} />
-          <Route path="/jamaah/suluk/edit/:idflock/:id" element={<EditSulukPage />} />
+          <Route path="/jamaah/suluk/edit/:idflock/:idsuluk" element={<EditSulukPage />} />
 
           <Route path="/mz/listData" element={<ListPageMZ />} />
           <Route path="/mz/addData" element={<CreatePageMZ />} />

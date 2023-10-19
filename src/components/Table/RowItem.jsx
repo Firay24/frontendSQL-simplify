@@ -13,7 +13,6 @@ function RowItem({
   rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false, pathEditExtra,
 }) {
   const [scopeColumn, ...regularColumns] = rows;
-  console.log(pathEditExtra);
 
   return (
     <tr className="bg-white border-b">

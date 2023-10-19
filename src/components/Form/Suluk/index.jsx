@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
@@ -7,9 +8,10 @@ import PropTypes from 'prop-types';
 import SubmitButton from 'components/Button/ButtonOnClick';
 
 function ContainerExtra({
-  kaji, suluk, addSuluk, updateSuluk, flock,
+  kaji, suluk, addSuluk, updateSuluk, flock, prevFlock,
 }) {
   const [sulukInfo, setSuluk] = useState({
+    id: '',
     nameSuluk: '',
     sulukTo: '',
     location: '',
@@ -32,6 +34,7 @@ function ContainerExtra({
     if (addSuluk) {
       addSuluk(sulukInfo);
       setSuluk({
+        id: '',
         nameSuluk: '',
         sulukTo: '',
         location: '',
@@ -42,6 +45,17 @@ function ContainerExtra({
       });
     } else if (updateSuluk) {
       updateSuluk(sulukInfo);
+      console.log(sulukInfo);
+      setSuluk({
+        id: '',
+        nameSuluk: '',
+        sulukTo: '',
+        location: '',
+        times: '',
+        prevKaji: '',
+        afterKaji: '',
+        notes: '',
+      });
     }
   };
 
@@ -54,6 +68,21 @@ function ContainerExtra({
       }));
     }
   }, [flock]);
+
+  useEffect(() => {
+    if (prevFlock !== null && prevFlock !== undefined) {
+      setSuluk({
+        id: prevFlock.idsuluks,
+        nameSuluk: prevFlock.nameSuluk,
+        sulukTo: prevFlock.sulukTo,
+        location: prevFlock.location,
+        times: prevFlock.times && prevFlock.times.substr(0, 10),
+        prevKaji: prevFlock.prevKaji,
+        afterKaji: prevFlock.afterKaji,
+        notes: prevFlock.notes,
+      });
+    }
+  }, [prevFlock]);
 
   return (
     <div>

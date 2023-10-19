@@ -387,6 +387,19 @@ async function getSuluks() {
   return { error: false, data: responseJson.data };
 }
 
+async function getSuluk(id) {
+  const response = await fetch(`${BASE_URL}/flocks/suluks/${id}`);
+
+  const responseJson = await response.json();
+
+  if (response.status !== 200) {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson.data[0] };
+}
+
 async function updateSuluk({
   id, nameSuluk, sulukTo, location, times, prevKaji, afterKaji, notes,
 }) {
@@ -652,6 +665,7 @@ export {
   importFileFunctionals,
   createSuluk,
   getSuluks,
+  getSuluk,
   updateSuluk,
   getClasses,
   updateClass,
