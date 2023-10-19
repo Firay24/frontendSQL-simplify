@@ -60,7 +60,7 @@ function ContainerExtra({
   };
 
   useEffect(() => {
-    if (flock && flock.suluks) {
+    if (flock && flock.suluks && !prevFlock) {
       const maxSulukTo = Math.max(...flock.suluks.map((item) => item.sulukTo));
       setSuluk((prevState) => ({
         ...prevState,
