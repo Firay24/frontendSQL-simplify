@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import TableSection from 'components/Table';
 
 function TableListSuluk({ suluks, idFlock }) {
-  const columnsName = ['Suluk Ke', 'Nama Suluk', 'Pelaksanaan', 'Lokasi', 'Kaji Sebelum', 'Kaji setelah', 'Action'];
-  const rowsName = ['sulukTo', 'nameSuluk', 'times', 'location', 'prevKaji', 'afterKaji'];
+  const columnsName = ['Nama Suluk', 'Suluk Ke', 'Pelaksanaan', 'Lokasi', 'Kaji Sebelum', 'Kaji setelah', 'Action'];
+  const rowsName = ['nameSuluk', 'sulukTo', 'times', 'location', 'prevKaji', 'afterKaji'];
   const pathAddSuluk = '/jamaah/suluk/create/';
   const pathEditExtra = '/jamaah/suluk/edit/';
+  const pathDetailExtra = '/jamaah/suluk/view/';
   return (
     <div>
       <TableSection
@@ -19,6 +20,7 @@ function TableListSuluk({ suluks, idFlock }) {
         idFlock={idFlock}
         path={pathAddSuluk}
         pathEditExtra={pathEditExtra}
+        pathDetailExtra={pathDetailExtra}
         extra
       />
     </div>

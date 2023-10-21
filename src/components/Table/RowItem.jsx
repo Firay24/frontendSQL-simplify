@@ -10,14 +10,23 @@ import { RxDotFilled } from 'react-icons/rx';
 import ParseDateFunc from '../../utils/parseDateFunc';
 
 function RowItem({
-  rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false, pathEditExtra,
+  rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false, pathEditExtra, pathDetailExtra,
 }) {
   const [scopeColumn, ...regularColumns] = rows;
+  console.log(pathDetail);
 
   return (
     <tr className="bg-white border-b">
       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-        {pathDetail ? (<Link to={pathDetail}>{data[scopeColumn]}</Link>) : data[scopeColumn]}
+        {pathDetailExtra.includes('undefined') ? (
+          pathDetail.includes('undefined') ? (
+            data[scopeColumn]
+          ) : (
+            <Link to={pathDetail}>{data[scopeColumn]}</Link>
+          )
+        ) : (
+          <Link to={pathDetailExtra}>{data[scopeColumn]}</Link>
+        )}
       </th>
       {
                 regularColumns.map((column, index) => (
@@ -86,6 +95,7 @@ RowItem.propTypes = {
   pathDetail: PropTypes.string,
   pathEdit: PropTypes.string,
   pathEditExtra: PropTypes.string,
+  pathDetailExtra: PropTypes.string,
   pathNote: PropTypes.string,
   regency: PropTypes.string,
   isClasses: PropTypes.bool,
