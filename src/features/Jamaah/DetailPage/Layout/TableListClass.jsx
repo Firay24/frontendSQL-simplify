@@ -8,6 +8,7 @@ function TableListClass({ classes, idFlock }) {
   const columnsName = ['Nama kelas', 'Pelaksanaan', 'Lokasi', 'Action'];
   const rowsName = ['nameClass', 'times', 'location'];
   const pathAddClass = '/jamaah/class/create/';
+  const pathEditExtra = '/jamaah/class/edit/';
   return (
     <div>
       <TableSection
@@ -17,6 +18,7 @@ function TableListClass({ classes, idFlock }) {
         isClasses
         path={pathAddClass}
         idFlock={idFlock}
+        pathEditExtra={pathEditExtra}
         extra
       />
     </div>

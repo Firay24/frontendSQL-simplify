@@ -446,30 +446,43 @@ async function createClasses({
   return { error: false, data: responseJson };
 }
 
-async function getClasses() {
-  const response = await fetch(`${BASE_URL}/class/getClasses`);
+async function getClass(id) {
+  const response = await fetch(`${BASE_URL}/flocks/class/${id}`);
+
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson.data[0] };
 }
 
 async function updateClass({
-  _id, name, nik, fathersName, details,
+  id, nameClass, time, location,
 }) {
-  const response = await fetch(`${BASE_URL}/class/updateClassWithoutVerify/${_id}`, {
+  const response = await fetch(`${BASE_URL}/flocks/class/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name, nik, fathersName, details,
+      nameClass, time, location,
     }),
   });
+  const responseJson = await response.json();
+
+  if (response.status !== 200) {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson };
+}
+
+async function getClasses() {
+  const response = await fetch(`${BASE_URL}/class/getClasses`);
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
@@ -692,6 +705,7 @@ export {
   updateSuluk,
   createClasses,
   getClasses,
+  getClass,
   updateClass,
   getNotesFlock,
   getNoteFlock,

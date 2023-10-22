@@ -40,6 +40,7 @@ import EditSulukPage from 'features/Jamaah/Suluk/EditPage';
 import DetailSulukPage from 'features/Jamaah/Suluk/ViewPage';
 
 import CreateClassPage from 'features/Jamaah/Classes/CreatePage';
+import EditClassPage from 'features/Jamaah/Classes/EditPage';
 
 import ProfilPage from 'features/Profil';
 
@@ -117,6 +118,7 @@ function App() {
           <Route path="/jamaah/suluk/edit/:idflock/:idsuluk" element={<EditSulukPage />} />
           <Route path="/jamaah/suluk/view/:idflock/:idsuluk" element={<DetailSulukPage />} />
           <Route path="/jamaah/class/create/:id" element={<CreateClassPage />} />
+          <Route path="/jamaah/class/edit/:idflock/:idclass" element={<EditClassPage />} />
 
           <Route path="/mz/listData" element={<ListPageMZ />} />
           <Route path="/mz/addData" element={<CreatePageMZ />} />

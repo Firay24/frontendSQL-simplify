@@ -71,12 +71,18 @@ function ContainerExtra({
 
   useEffect(() => {
     if (prevFlock !== null && prevFlock !== undefined) {
+      const date = new Date(prevFlock.times);
+      date.setDate(date.getDate());
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const formattedTime = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
       setSuluk({
         id: prevFlock.idsuluks,
         nameSuluk: prevFlock.nameSuluk,
         sulukTo: prevFlock.sulukTo,
         location: prevFlock.location,
-        times: prevFlock.times && prevFlock.times.substr(0, 10),
+        times: formattedTime,
         prevKaji: prevFlock.prevKaji,
         afterKaji: prevFlock.afterKaji,
         notes: prevFlock.notes,

@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SubmitButton from 'components/Button/ButtonOnClick';
 
-function ContainerClass({ addClass, classData }) {
+function ContainerClass({
+  addClass, classData, updateClass, classInformation,
+}) {
   const [classInfo, setClassInfo] = useState({
+    id: '',
     nameClass: '',
     time: '',
     location: '',
@@ -22,13 +25,35 @@ function ContainerClass({ addClass, classData }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addClass(classInfo);
+    if (addClass) {
+      addClass(classInfo);
+    } else if (updateClass) {
+      updateClass(classInfo);
+    }
     setClassInfo({
+      id: '',
       nameClass: '',
       time: '',
       location: '',
     });
   };
+
+  useEffect(() => {
+    if (classInformation !== null && classInformation !== undefined) {
+      const date = new Date(classInformation.time);
+      date.setDate(date.getDate());
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const formattedTime = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      setClassInfo({
+        id: classInformation.idclasses,
+        nameClass: classInformation.nameClass,
+        location: classInformation.location,
+        time: formattedTime,
+      });
+    }
+  }, [classInformation]);
 
   return (
     <div>
@@ -94,6 +119,8 @@ function ContainerClass({ addClass, classData }) {
 ContainerClass.prototype = {
   addClass: PropTypes.func,
   classData: PropTypes.array,
+  updateClass: PropTypes.func,
+  flock: PropTypes.object,
 };
 
 export default ContainerClass;
