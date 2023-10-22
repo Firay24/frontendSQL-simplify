@@ -423,6 +423,29 @@ async function updateSuluk({
 }
 
 // CLASS
+async function createClasses({
+  id, nameClass, time, location,
+}) {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/class/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      nameClass, time, location,
+    }),
+  });
+
+  const responseJson = response.json();
+
+  if (response.status !== 200) {
+    console.log(responseJson.message);
+    return { error: true, data: [] };
+  }
+
+  return { error: false, data: responseJson };
+}
+
 async function getClasses() {
   const response = await fetch(`${BASE_URL}/class/getClasses`);
   const responseJson = await response.json();
@@ -667,6 +690,7 @@ export {
   getSuluks,
   getSuluk,
   updateSuluk,
+  createClasses,
   getClasses,
   updateClass,
   getNotesFlock,
