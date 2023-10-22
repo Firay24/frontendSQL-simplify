@@ -7,7 +7,7 @@ import TableSection from 'components/Table';
 
 function TableList({ flocks }) {
   const columnsName = ['NAMA', 'ASAL MZ', 'KAJI', 'KABUPATEN', 'ACTION'];
-  const rowsName = ['name', 'mzOrigin', 'kaji'];
+  const rowsName = ['name', 'mzOrigin', 'afterKaji'];
   const pathDetail = '/jamaah/detailData/';
   const pathEdit = '/jamaah/editData/';
   const pathNote = '/jamaah/catatan/listData/';
