@@ -175,15 +175,15 @@ async function importFileFlocks(file) {
 
 // BOARD
 async function getBoards() {
-  const response = await fetchWithToken(`${BASE_URL}/boards/getBoards`);
+  const response = await fetchWithToken(`${BASE_URL}/boards`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 async function getBoard(id) {
@@ -498,46 +498,46 @@ async function getNotesFlock(id) {
   const response = await fetchWithToken(`${BASE_URL}/flocks/notes/${id}`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 async function getNoteFlock(id) {
-  const response = await fetchWithToken(`${BASE_URL}/noteFlock/getNote/${id}`);
+  const response = await fetchWithToken(`${BASE_URL}/flocks/notes/detail/${id}`);
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: null };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 async function updateNoteFlock({
-  _id, name, nik, fathersName, details,
+  id, name, status, details, author,
 }) {
-  const response = await fetchWithToken(`${BASE_URL}/noteFlock/updatedNote/${_id}`, {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/notes/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name, nik, fathersName, details,
+      name, status, details, author,
     }),
   });
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     console.log(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 async function updateNoteFlockBio({
@@ -563,26 +563,26 @@ async function updateNoteFlockBio({
 }
 
 async function addNoteFlock({
-  name, nik, fathersName, details,
+  idflock, name, status, details,
 }) {
-  const response = await fetchWithToken(`${BASE_URL}/noteFlock/addNote`, {
+  const response = await fetchWithToken(`${BASE_URL}/flocks/notes/${idflock}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name, nik, fathersName, details,
+      name, status, details,
     }),
   });
 
   const responseJson = await response.json();
 
-  if (responseJson.status !== 'success') {
+  if (response.status !== 200) {
     alert(responseJson.message);
     return { error: true, data: [] };
   }
 
-  return { error: false, data: responseJson.data };
+  return { error: false, data: responseJson };
 }
 
 // NOTE'S BOARD

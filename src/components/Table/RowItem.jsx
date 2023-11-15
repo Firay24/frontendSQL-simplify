@@ -13,7 +13,6 @@ function RowItem({
   rows, data, pathDetail, pathEdit, pathNote, regency, isClasses = false, isSuluk = false, pathEditExtra, pathDetailExtra,
 }) {
   const [scopeColumn, ...regularColumns] = rows;
-
   return (
     <tr className="bg-white border-b">
       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -29,7 +28,7 @@ function RowItem({
       </th>
       {
                 regularColumns.map((column, index) => (
-                  column === 'times' || column === 'createAt' || column === 'updatedAt'
+                  column === 'times' || column === 'created_at' || column === 'updated_at'
                     ? (
                       <td key={index} className="px-6 py-4">
                         {ParseDateFunc(data[column])}
@@ -37,9 +36,9 @@ function RowItem({
                     ) : column === 'status'
                       ? (
                         <td className="px-6 py-3">
-                          <div className={data[column] === 'Belum selesai' ? 'bg-red-100 hover:bg-red-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center w-fit' : 'bg-green-100 w-fit hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'}>
-                            <RxDotFilled className={data[column] === 'Belum selesai' ? 'text-base text-red-500' : 'text-base text-green-500'} />
-                            <p className="text-gray-900 cursor-default">{data[column]}</p>
+                          <div className={data[column] === 0 ? 'bg-red-100 hover:bg-red-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center w-fit' : 'bg-green-100 w-fit hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'}>
+                            <RxDotFilled className={data[column] === 0 ? 'text-base text-red-500' : 'text-base text-green-500'} />
+                            <p className="text-gray-900 cursor-default">{data[column] ? 'Sudah' : 'Belum'}</p>
                           </div>
                         </td>
                       )

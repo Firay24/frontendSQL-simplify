@@ -16,7 +16,6 @@ function EditNotePage({ user }) {
   const { id } = useParams();
   const { idNote } = useParams();
   const [note, setNote] = useState({ error: false, data: [] });
-  const [infoNote, setInfoNote] = useState({ error: false, data: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState(false);
   const navigate = useNavigate();
@@ -61,16 +60,9 @@ function EditNotePage({ user }) {
         setNote({ error: true, data: [] });
       }
     };
-    fetchData(id);
-  }, [id]);
-  const detailNote = note && note.data && note.data.note;
-
-  useEffect(() => {
-    const detailInfoNote = detailNote && detailNote.details.find((noteItem) => noteItem._id === idNote);
-    if (detailInfoNote) {
-      setInfoNote(detailInfoNote);
-    }
-  }, [idNote, detailNote]);
+    fetchData(idNote);
+  }, [idNote]);
+  const detailNote = note && note.data && note.data.data;
 
   const handleUpdateNote = async (value) => {
     try {
@@ -103,9 +95,8 @@ function EditNotePage({ user }) {
             isLoading ? <Loading />
               : (
                 <InputContainer
-                  user={user && user}
-                  prevNote={infoNote && infoNote}
-                  prevNotes={detailNote && detailNote}
+                  user={user && user[0]}
+                  prevNote={detailNote && detailNote[0]}
                   updateNote={handleUpdateNote}
                 />
               )

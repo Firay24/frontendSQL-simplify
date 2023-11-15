@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/prop-types */
@@ -8,72 +9,49 @@ import PropTypes from 'prop-types';
 import SubmitButton from 'components/Button/ButtonOnClick';
 
 function NoteContainer({
-  prevNote, prevNotes, addNote, updateNote, user,
+  prevNote, addNote, updateNote, user,
 }) {
   const [note, setNote] = useState({
-    _id: '',
+    id: '',
     name: '',
-    nik: '',
-    fathersName: '',
-    details: {
-      name: '',
-      status: 'Belum selesai',
-      details: '',
-      author: user.name,
-    },
+    status: 0,
+    details: '',
+    author: user.name,
   });
 
   useEffect(() => {
-    if (prevNotes !== undefined && prevNotes !== null && prevNotes && user) {
+    if (prevNote !== undefined) {
       setNote({
-        _id: prevNotes._id,
-        name: prevNotes.name,
-        nik: prevNotes.nik,
-        fathersName: prevNotes.fathersName,
-        details: {
-          name: '',
-          status: 'Belum selesai',
-          details: '',
-          author: user.name,
-        },
+        id: prevNote.id,
+        name: prevNote.name,
+        status: prevNote.status,
+        details: prevNote.details,
+        author: user.name,
       });
     }
-  }, [prevNotes]);
-
-  useEffect(() => {
-    if (prevNote !== undefined && prevNotes !== undefined) {
-      setNote({
-        _id: prevNotes._id,
-        name: prevNotes.name,
-        nik: prevNotes.nik,
-        fathersName: prevNotes.fathersName,
-        details: {
-          _id: prevNote._id,
-          name: prevNote.name,
-          status: prevNote.status,
-          details: prevNote.details,
-          author: user.name,
-        },
-      });
-    }
-  }, [prevNote, prevNotes]);
+  }, [prevNote]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    setNote((prevState) => ({
-      ...prevState,
-      details: {
-        ...prevState.details,
+    if (name === 'status') {
+      setNote((prevState) => ({
+        ...prevState,
+        [name]: value === '0' ? 0 : 1,
+      }));
+    } else {
+      setNote((prevState) => ({
+        ...prevState,
         [name]: value,
-      },
-    }));
+      }));
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (addNote) {
-      addNote(note);
+      const { id, ...state } = note;
+      addNote(state);
     } else if (updateNote) {
       updateNote(note);
     }
@@ -91,7 +69,7 @@ function NoteContainer({
                 name="name"
                 id="name"
                 type="text"
-                value={note.details.name}
+                value={note.name}
                 onChange={handleInputChange}
                 required
                 className="rounded text-xs border-gray-400"
@@ -102,12 +80,12 @@ function NoteContainer({
               <select
                 name="status"
                 id="status"
-                value={note.details.status}
+                value={note.status}
                 onChange={handleInputChange}
                 className="rounded text-xs border-gray-400"
               >
-                <option value="Belum selesai">Belum selesai</option>
-                <option value="Sudah selesai">Sudah selesai</option>
+                <option value="0">Belum selesai</option>
+                <option value="1">Sudah selesai</option>
               </select>
             </div>
           </div>
@@ -116,7 +94,7 @@ function NoteContainer({
             <textarea
               name="details"
               id="details"
-              value={note.details.details}
+              value={note.details}
               onChange={handleInputChange}
               cols="30"
               rows="5"
@@ -135,7 +113,6 @@ function NoteContainer({
 
 NoteContainer.propTypes = {
   prevNote: PropTypes.object,
-  prevNotes: PropTypes.object,
   addNote: PropTypes.func,
   updateNote: PropTypes.func,
   user: PropTypes.object,

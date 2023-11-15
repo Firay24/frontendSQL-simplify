@@ -9,9 +9,7 @@ import DetailContainer from './Layout/DetailContainer';
 
 function DetailNotePage() {
   const { id } = useParams();
-  const { idNote } = useParams();
   const [note, setNote] = useState({ error: false, data: [] });
-  const [infoNote, setInfoNote] = useState({ error: false, data: [] });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,15 +23,8 @@ function DetailNotePage() {
       }
     };
     fetchData(id);
-  });
-  const detailNote = note && note.data && note.data.note;
-
-  useEffect(() => {
-    const detailInfoNote = detailNote && detailNote.details.find((noteItem) => noteItem._id === idNote);
-    if (detailInfoNote) {
-      setInfoNote(detailInfoNote);
-    }
-  }, [idNote, detailNote]);
+  }, [id]);
+  const detailNote = note && note.data && note.data.data;
 
   return (
     <div className="mt-4 mr-10 mb-6">
@@ -42,7 +33,7 @@ function DetailNotePage() {
       </div>
       <div>
         {
-          isLoading ? <Loading /> : <DetailContainer infoNote={infoNote} id={id} idNote={idNote} />
+          isLoading ? <Loading /> : <DetailContainer infoNote={detailNote[0]} id={id} />
         }
       </div>
     </div>

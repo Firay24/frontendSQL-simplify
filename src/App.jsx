@@ -111,9 +111,9 @@ function App() {
           <Route path="/jamaah/detailData/:id" element={<DetailPageJamaah />} />
           <Route path="/jamaah/editData/:id" element={<EditPageJamaah />} />
           <Route path="/jamaah/catatan/listData/:id" exact element={<NotesPageJamaah />} />
-          <Route path="/jamaah/catatan/detailData/:id/:idNote" exact element={<DetailNotePageJamaah />} />
+          <Route path="/jamaah/catatan/detailData/:id" exact element={<DetailNotePageJamaah />} />
           <Route path="/jamaah/catatan/editData/:id/:idNote" element={<EditNotePageJamaah user={authedUser} />} />
-          <Route path="/jamaah/catatan/addData/:id" element={<CreateNotePageJamaah />} />
+          <Route path="/jamaah/catatan/addData/:id" element={<CreateNotePageJamaah user={authedUser} />} />
           <Route path="/jamaah/suluk/create/:id" element={<CreateSulukPage />} />
           <Route path="/jamaah/suluk/edit/:idflock/:idsuluk" element={<EditSulukPage />} />
           <Route path="/jamaah/suluk/view/:idflock/:idsuluk" element={<DetailSulukPage />} />

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -5,7 +6,7 @@ import { RxDotFilled } from 'react-icons/rx';
 import parseDateFunc from '../../../utils/parseDateFunc';
 
 function NoteDetailContainer({
-  name, details, updatedAt, status, author,
+  name, details, updated_at, status, author,
 }) {
   return (
     <div>
@@ -20,13 +21,13 @@ function NoteDetailContainer({
             <p className="text-xs text-grey-light">
               Terakhir update,
               {' '}
-              {parseDateFunc(updatedAt)}
+              {parseDateFunc(updated_at)}
             </p>
           </div>
           <div>
-            <div className={status === 'Belum selesai' ? 'bg-red-100 hover:bg-red-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center' : 'bg-green-100 hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'}>
-              <RxDotFilled className={status === 'Belum selesai' ? 'text-base text-red-500' : 'text-base text-green-500'} />
-              <p className="text-gray-900 cursor-default text-xs">{status}</p>
+            <div className={status === 0 ? 'bg-red-100 hover:bg-red-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center' : 'bg-green-100 hover:bg-green-200 rounded-full py-[2px] pr-2 pl-[2px] flex items-center'}>
+              <RxDotFilled className={status === 0 ? 'text-base text-red-500' : 'text-base text-green-500'} />
+              <p className="text-gray-900 cursor-default text-xs">{status === 0 ? 'belum' : 'selesai'}</p>
             </div>
           </div>
         </div>
@@ -41,7 +42,7 @@ function NoteDetailContainer({
 NoteDetailContainer.propTypes = {
   name: PropTypes.string,
   details: PropTypes.string,
-  updatedAt: PropTypes.string,
+  updated_at: PropTypes.string,
   status: PropTypes.string,
   author: PropTypes.string,
 };

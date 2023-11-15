@@ -5,9 +5,9 @@ import TableSection from 'components/Table';
 
 function TableList({ notes, idFlock }) {
   const columnsName = ['Judul catatan', 'Tanggal', 'Author', 'Terakhir update', 'Status', 'Action'];
-  const rowsName = ['name', 'createAt', 'author', 'updatedAt', 'status'];
+  const rowsName = ['name', 'created_at', 'author', 'updated_at', 'status'];
   const pathDetail = '/jamaah/catatan/detailData/';
-  const pathEdit = '/jamaah/catatan/editData/';
+  const pathEditExtra = '/jamaah/catatan/editData/';
 
   return (
     <div>
@@ -16,9 +16,10 @@ function TableList({ notes, idFlock }) {
         rowsName={rowsName}
         data={notes}
         idFlock={idFlock}
-        isNotes
+        isClasses
+        isSuluk
         pathDetail={pathDetail}
-        pathEdit={pathEdit}
+        pathEditExtra={pathEditExtra}
       />
     </div>
   );

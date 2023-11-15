@@ -1,19 +1,17 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import InputContainer from 'components/Form/Note/Jamaah';
-import {
-  getNoteFlock, getFlock, updateNoteFlock, addNoteFlock,
-} from 'utils/apiData';
+import { addNoteFlock } from 'utils/apiData';
 import Header from './Layout/Header';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-function CreateNotePage() {
+function CreateNotePage({ user }) {
   const { id } = useParams();
-  const [note, setNote] = useState({ error: false, data: [] });
-  const [flock, setFlock] = useState({ error: false, data: [] });
   const navigate = useNavigate();
   const [status, setStatus] = useState(false);
 
@@ -47,52 +45,10 @@ function CreateNotePage() {
     });
   };
 
-  useEffect(() => {
-    const fetchData = async (idParams) => {
-      try {
-        const result = await getNoteFlock(idParams);
-        setNote(result);
-      } catch (error) {
-        setNote({ error: true, data: [] });
-      }
-    };
-    fetchData(id);
-  }, [id, status]);
-  const detailNote = note && note.data && note.data.note;
-
-  useEffect(() => {
-    if (!detailNote) {
-      const fetchData = async (idParams) => {
-        try {
-          const result = await getFlock(idParams);
-          setFlock(result);
-        } catch (error) {
-          setFlock({ error: true, data: null });
-        }
-      };
-      fetchData(id);
-    }
-  }, [detailNote, id]);
-  const detailFlock = flock && flock.data && flock.data.flock;
-
-  const handleUpdateNote = async (value) => {
-    try {
-      const response = await updateNoteFlock(value);
-      setStatus(true);
-      notifySuccessEditData();
-      console.log('Data berhasil diperbarui', response);
-    } catch (error) {
-      setStatus(false);
-      notifyErrordEditData();
-      console.log('Data gagal diperbarui');
-    }
-  };
-
   const handleAddNote = async (value) => {
     try {
-      const response = await addNoteFlock(value);
+      const response = await addNoteFlock({ idflock: id, ...value });
       setStatus(true);
-      setNote(response);
       notifySuccessEditData();
       console.log('Data berhasil ditambahkan', response);
     } catch (error) {
@@ -100,12 +56,11 @@ function CreateNotePage() {
       console.log('Data gagal ditambahkan');
     }
   };
-  const detailNoteAfterAdd = note && note.data && note.data.note;
 
   useEffect(() => {
     if (status) {
       setTimeout(() => {
-        navigate(`/jamaah/catatan/listData/${detailNoteAfterAdd._id}`);
+        navigate(`/jamaah/catatan/listData/${id}`);
       }, 2000);
     }
   }, [status]);
@@ -118,8 +73,8 @@ function CreateNotePage() {
         </div>
         <div>
           <InputContainer
-            addNote={detailNote ? handleUpdateNote : handleAddNote}
-            prevNotes={detailNote ? detailNote && detailNote : detailFlock && detailFlock}
+            addNote={handleAddNote}
+            user={user && user[0]}
           />
         </div>
       </div>
@@ -138,5 +93,9 @@ function CreateNotePage() {
     </>
   );
 }
+
+CreateNotePage.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default CreateNotePage;

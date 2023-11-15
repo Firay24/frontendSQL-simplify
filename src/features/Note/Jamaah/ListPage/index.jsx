@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getNoteFlock } from 'utils/apiData';
+import { getNotesFlock } from 'utils/apiData';
 import Loading from 'components/Loading';
 import NotFoundContent from 'components/404/Content';
 import Header from './Layout/Header';
@@ -17,7 +18,7 @@ function ListPageNote() {
   useEffect(() => {
     const fetchData = async (idParams) => {
       try {
-        const result = await getNoteFlock(idParams);
+        const result = await getNotesFlock(idParams);
         if (result) {
           setNoteFlock(result);
           setIsLoading(false);
@@ -26,10 +27,9 @@ function ListPageNote() {
         setNoteFlock({ error: true, data: null });
       }
     };
-
     fetchData(id);
   }, [id]);
-  const detailNote = noteFlock && noteFlock.data && noteFlock.data.note;
+  const detailNote = noteFlock && noteFlock.data && noteFlock.data.data;
 
   return (
     <div className="mt-4 mr-10">
